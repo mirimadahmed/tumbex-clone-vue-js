@@ -41,6 +41,10 @@ section {
 }
 .title {
   border-bottom: 1px white solid;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    position: relative;
+    font-size: 3.5rem;
 }
 .lead {
   font-size: 1.25rem;
