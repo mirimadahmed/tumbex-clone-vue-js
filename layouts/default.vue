@@ -2,13 +2,16 @@
   <div class="home">
     <TopNav />
     <nuxt />
+    <Footer />
   </div>
 </template>
 <script>
 import TopNav from '@/components/Layout/TopNav'
+import Footer from '@/components/Layout/Footer'
 export default {
   components: {
-    TopNav
+    TopNav,
+    Footer
   }
 }
 </script>
