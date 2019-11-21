@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6 text-right">
+    <div class="col-md-6 text-right copy">
       &copy; 2014-2019 Tumbex.
     </div>
   </div>
@@ -30,5 +30,11 @@ export default {
   padding: 2rem 1rem;
   background: rgba(33,33,33,0.85);
   border-top: 5px solid rgba(33,33,33,0.85);
+}
+a {
+  color: #6c757d !important;
+}
+.copy {
+  color: #f4f1ef;
 }
 </style>
