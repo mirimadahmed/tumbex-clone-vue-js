@@ -11,6 +11,11 @@
         {{ last }}
       </div>
     </div>
+    <div class="col-md-12 text-center">
+      <b-button variant="outline-primary">
+        View All
+      </b-button>
+    </div>
   </div>
 </template>
 
