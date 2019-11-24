@@ -13,5 +13,8 @@ const client = tumblr.createClient({
 export default {
   getPosts (username) {
     return client.blogPosts(username)
+  },
+  getPostsWithType (username, type) {
+    return client.blogPosts(username, type)
   }
 }
