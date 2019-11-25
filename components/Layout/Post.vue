@@ -49,7 +49,8 @@
           </span>
         </div>
         <div class="p-1">
-          {{ post.type }} | {{ post.note_count }} NOTES | {{ timeNow(post.date) }}
+          <v-icon :name="typeToIcon(post.type)" class="float-left mx-1" width="20px" />
+          {{ post.note_count }} NOTES {{ timeNow(post.date) }}
         </div>
       </div>
     </div>
@@ -65,6 +66,28 @@ export default {
       required: true
     }
   },
+  data () {
+    return {
+      typeToIcons: {
+        photo: 'camera',
+        video: 'video',
+        answer: 'clipboard',
+        link: 'link',
+        quote: 'at-sign',
+        chat: 'message-square',
+        text: 'type'
+      },
+      iconColor: {
+        photo: '',
+        video: '',
+        answer: '',
+        link: '',
+        quote: '',
+        chat: '',
+        text: ''
+      }
+    }
+  },
   computed: {
     type () {
       return this.post.type
@@ -73,6 +96,9 @@ export default {
   methods: {
     timeNow (timestamp) {
       return moment(timestamp).fromNow()
+    },
+    typeToIcon (type) {
+      return this.typeToIcons[type]
     }
   }
 }

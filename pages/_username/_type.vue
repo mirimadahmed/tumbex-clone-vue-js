@@ -29,6 +29,11 @@ export default {
   created () {
     this.fetch()
   },
+  mounted () {
+    if (typeof this.$redrawVueMasonry === 'function') {
+      this.$redrawVueMasonry()
+    }
+  },
   methods: {
     async fetch () {
       this.isLoading = true
