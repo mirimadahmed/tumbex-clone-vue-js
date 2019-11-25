@@ -106,6 +106,7 @@ export default {
 .post {
   padding: 10px;
   width: 33vw;
+  color: white;
 }
 .post-wrapper {
   margin: 0;
