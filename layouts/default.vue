@@ -38,4 +38,7 @@ html {
   min-height: 100vh;
   background: #111 url(/home.svg) fixed;
 }
+.soundcloud_audio_player {
+  width: 100%;
+}
 </style>

@@ -2,18 +2,18 @@
   <div class="post">
     <div class="post-wrapper row m-0 p-0">
       <div class="post-content col-md-12 m-0 p-0">
-        <div v-if="type === 'text'" class="p-2">
+        <div v-if="type === 'text'" class="p-2 col-md-12 m-0">
           <h3>{{ post.title }}</h3>
-          <p>{{ post.body }}</p>
+          <div v-html="post.body" />
         </div>
-        <div v-else-if="type === 'quote'" class="p-2">
+        <div v-else-if="type === 'quote'" class="p-2 col-md-12 m-0">
           <p>{{ post.text }}</p>
         </div>
-        <div v-else-if="type === 'link'" class="p-2">
+        <div v-else-if="type === 'link'" class="p-2 col-md-12 m-0">
           <p v-html="post.description" />
           <a :href="post.url" class="float-right text-info font-weight-bolder">{{ post.title }}</a><v-icon name="link" class="mx-1 float-right text-info" width="15px" />
         </div>
-        <div v-else-if="type === 'chat'" class="p-2">
+        <div v-else-if="type === 'chat'" class="p-2 col-md-12 m-0">
           <p>{{ post.body }}</p>
           <div v-for="(item, index) in post.dialogue" :key="index">
             <h3>
@@ -22,13 +22,11 @@
             <p>{{ item.phrase }}</p>
           </div>
         </div>
-        <div v-else-if="type === 'audio'">
-          <h3>{{ post.caption }}</h3>
-          <div v-html="post.embed" />
+        <div v-else-if="type === 'audio'" class="m-0 p-0">
+          <div v-html="post.embed" class="col-md-12 m-0 p-0" />
         </div>
-        <div v-else-if="type === 'video'">
-          <h3>{{ post.caption }}</h3>
-          <div v-html="post.player[0]" />
+        <div v-else-if="type === 'video'" class="col-md-12 m-0">
+          <div v-html="post.player[0]" class="col-md-12 m-0 p-0" />
         </div>
         <div v-else-if="type === 'photo'">
           <div v-for="(item, index) in post.photos" :key="index">
@@ -69,6 +67,7 @@ export default {
     return {
       typeToIcons: {
         photo: 'camera',
+        audio: 'mic',
         video: 'video',
         answer: 'clipboard',
         link: 'link',
@@ -106,7 +105,7 @@ export default {
 <style scoped>
 .post {
   padding: 10px;
-  max-width: 33vw;
+  width: 33vw;
 }
 .post-wrapper {
   margin: 0;
@@ -128,10 +127,8 @@ export default {
 }
 .caption {
   border: 1px solid #2f2f2f;
-
 }
 .tags {
   border: 1px solid #2f2f2f;
-
 }
 </style>
