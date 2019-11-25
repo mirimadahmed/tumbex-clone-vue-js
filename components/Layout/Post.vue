@@ -14,11 +14,10 @@
           <a :href="post.url" class="float-right text-info font-weight-bolder">{{ post.title }}</a><v-icon name="link" class="mx-1 float-right text-info" width="15px" />
         </div>
         <div v-else-if="type === 'chat'" class="p-2 col-md-12 m-0">
-          <p>{{ post.body }}</p>
           <div v-for="(item, index) in post.dialogue" :key="index">
-            <h3>
+            <h5>
               {{ item.label }}
-            </h3>
+            </h5>
             <p>{{ item.phrase }}</p>
           </div>
         </div>
