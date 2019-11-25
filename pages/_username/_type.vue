@@ -1,17 +1,29 @@
 <template>
   <div>
-    {{ username }} | {{ type }}
+    <no-ssr>
+      <div v-masonry transition-duration="3s" item-selector=".item" class="masonry-container" fit-width="true">
+        <div v-masonry-tile :key="index" v-for="(item, index) in blocks" class="item">
+          <Post :post="item" />
+        </div>
+      </div>
+    </no-ssr>
   </div>
 </template>
 
 <script>
 import api from '@/api'
+import Post from '@/components/Layout/Post'
+
 export default {
+  components: {
+    Post
+  },
   data () {
     return {
       username: this.$route.params.username,
       type: this.$route.params.type,
-      isLoading: false
+      isLoading: false,
+      blocks: []
     }
   },
   created () {
@@ -21,6 +33,7 @@ export default {
     async fetch () {
       this.isLoading = true
       const response = await api.getPostsWithType(this.username, this.type)
+      this.blocks = response.posts
       this.isLoading = false
       console.log(response)
     }
