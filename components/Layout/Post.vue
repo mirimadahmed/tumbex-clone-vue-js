@@ -2,19 +2,18 @@
   <div class="post">
     <div class="post-wrapper row m-0 p-0">
       <div class="post-content col-md-12 m-0 p-0">
-        <div v-if="type === 'text'">
+        <div v-if="type === 'text'" class="p-2">
           <h3>{{ post.title }}</h3>
           <p>{{ post.body }}</p>
         </div>
-        <div v-else-if="type === 'quote'">
+        <div v-else-if="type === 'quote'" class="p-2">
           <p>{{ post.text }}</p>
         </div>
-        <div v-else-if="type === 'link'">
-          <h3>{{ post.title }}</h3>
-          <p>{{ post.description }}</p>
-          <a :href="post.url">{{ post.excerpt }}</a>
+        <div v-else-if="type === 'link'" class="p-2">
+          <p v-html="post.description" />
+          <a :href="post.url" class="float-right text-info font-weight-bolder">{{ post.title }}</a><v-icon name="link" class="mx-1 float-right text-info" width="15px" />
         </div>
-        <div v-else-if="type === 'chat'">
+        <div v-else-if="type === 'chat'" class="p-2">
           <p>{{ post.body }}</p>
           <div v-for="(item, index) in post.dialogue" :key="index">
             <h3>
@@ -36,7 +35,7 @@
             <img :src="item.original_size.url" class="col-md-12 m-0 p-0">
           </div>
         </div>
-        <div v-else-if="type === 'answer'">
+        <div v-else-if="type === 'answer'" class="p-2">
           <h3>{{ post.question }}</h3>
           <h6>{{ post.answer }}</h6>
         </div>
