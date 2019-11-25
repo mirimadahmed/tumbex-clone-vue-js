@@ -49,7 +49,7 @@
           </span>
         </div>
         <div class="p-1">
-          {{ post.type }} | {{ post.note_count }} NOTES | {{ post.timestamp }}
+          {{ post.type }} | {{ post.note_count }} NOTES | {{ timeNow(post.date) }}
         </div>
       </div>
     </div>
@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   props: {
     post: {
@@ -67,6 +68,11 @@ export default {
   computed: {
     type () {
       return this.post.type
+    }
+  },
+  methods: {
+    timeNow (timestamp) {
+      return moment(timestamp).fromNow()
     }
   }
 }
