@@ -40,6 +40,7 @@ export default {
     async fetch () {
       this.isLoading = true
       const response = await api.getPosts(this.username)
+      this.$store.dispatch('setBlog', response)
       this.blocks = response.posts
       this.isLoading = false
       console.log(response)

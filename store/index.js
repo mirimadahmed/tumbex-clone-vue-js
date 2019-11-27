@@ -18,7 +18,14 @@ export default () => new Vuex.Store({
     posts: state => state.posts,
     favBlogs: state => state.favouriteBlogs,
     favPosts: state => state.favouritePosts,
-    lastSeen: state => state.lastSeen
+    lastSeen: state => state.lastSeen,
+    tags: (state) => {
+      const tags = []
+      state.posts.map(post => post.tags.forEach((element) => {
+        if (!tags.includes(element)) { tags.push(element) }
+      }))
+      return tags
+    }
   },
   actions: {
     login (context, payload) {
