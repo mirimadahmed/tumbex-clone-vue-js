@@ -1,31 +1,31 @@
 <template>
-  <section class="blog blog-panel">
+  <section v-if="blog !== null" class="blog blog-panel">
     <h1 class="blog-panel-header">
       <span class="blog-panel-icon">
-        <a href="https://www.tumbex.com/mirimadahmed.tumblr/posts">
+        <a :href="`https://www.tumbex.com/${blog.name}/posts`">
           <img
+            :src="`https://api.tumblr.com/v2/blog/${blog.name}.tumblr.com/avatar/128`"
+            :alt="blog.name"
             class="t-blog-icon"
-            src="https://api.tumblr.com/v2/blog/mirimadahmed.tumblr.com/avatar/128"
-            alt="mirimadahmed"
           >
         </a>
       </span>
       <span class="blog-panel-left text-truncate">
-        <a href="https://www.tumbex.com/mirimadahmed.tumblr/posts">mirimadahmed</a>
+        <a :href="`https://www.tumbex.com/${blog.name}/posts`">{{ blog.name }}</a>
       </span>
       <span class="blog-panel-right text-truncate">
-        <a href="https://mirimadahmed.tumblr.com" target="_blank">.tumblr.com</a>
+        <a :href="`https://${blog.name}.tumblr.com`" target="_blank">.tumblr.com</a>
       </span>
     </h1>
     <div class="blog-panel-title flow-text">
-      My First Post
+      {{ blog.title }}
     </div>
     <div class="blog-action container-fluid text-center px-0">
       <a
+        :data-tumblr="blog.name"
         href="#"
         class="btn-square large tumbex tumblr-favorite"
         title="Add to favorite"
-        data-tumblr="mirimadahmed"
       >
         <i class="far fa-star fa-lg" />
       </a>
@@ -78,53 +78,53 @@
     <div
       class="container-fluid blog-panel-description"
     >
-      I have been hearing much about tumblr.com so today I decided to join it. So this is my first post here. I hope to have a good journey here.
+      {{ blog.description }}
     </div>
     <ul class="container-fluid icon-list">
-      <li class="text">
-        <a href="https://www.tumbex.com/mirimadahmed.tumblr/text">
+      <li :class="type && type === 'text' ? 'active': ''" class="text">
+        <a :href="`https://www.tumbex.com/${blog.name}/text`">
           <i class="fas fa-font fa-3x" />
           <span class="number">Text</span>
           <span class="sr-only">Text</span>
         </a>
       </li>
-      <li class="quote">
-        <a href="https://www.tumbex.com/mirimadahmed.tumblr/quote">
+      <li :class="type && type === 'quote' ? 'active': ''" class="quote">
+        <a :href="`https://www.tumbex.com/${blog.name}/quote`">
           <i class="fas fa-quote-right fa-3x" />
           <span class="number">Citation</span>
           <span class="sr-only">Citation</span>
         </a>
       </li>
-      <li class="audio">
-        <a href="https://www.tumbex.com/mirimadahmed.tumblr/audio">
+      <li :class="type && type === 'audio' ? 'active': ''" class="audio">
+        <a :href="`https://www.tumbex.com/${blog.name}/audio`">
           <i class="fas fa-headphones fa-3x" />
           <span class="number">Audio</span>
           <span class="sr-only">Audio</span>
         </a>
       </li>
-      <li class="photo active">
-        <a href="https://www.tumbex.com/mirimadahmed.tumblr/photo">
+      <li :class="type && type === 'photo' ? 'active': ''" class="photo">
+        <a :href="`https://www.tumbex.com/${blog.name}/photo`">
           <i class="fas fa-camera-retro fa-3x" />
           <span class="number">Photo</span>
           <span class="sr-only">Photo</span>
         </a>
       </li>
-      <li class="video">
-        <a href="https://www.tumbex.com/mirimadahmed.tumblr/video">
+      <li :class="type && type === 'video' ? 'active': ''" class="video">
+        <a :href="`https://www.tumbex.com/${blog.name}/video`">
           <i class="fas fa-video fa-3x" />
           <span class="number">Video</span>
           <span class="sr-only">Video</span>
         </a>
       </li>
-      <li class="link">
-        <a href="https://www.tumbex.com/mirimadahmed.tumblr/link">
+      <li :class="type && type === 'link' ? 'active': ''" class="link">
+        <a :href="`https://www.tumbex.com/${blog.name}/link`">
           <i class="fas fa-link fa-3x" />
           <span class="number">Lien</span>
           <span class="sr-only">Lien</span>
         </a>
       </li>
-      <li class="chat">
-        <a href="https://www.tumbex.com/mirimadahmed.tumblr/chat">
+      <li :class="type && type === 'chat' ? 'active': ''" class="chat">
+        <a :href="`https://www.tumbex.com/${blog.name}/chat`">
           <i class="far fa-comments fa-3x" />
           <span class="number">Discussion</span>
           <span class="sr-only">Discussion</span>
@@ -140,7 +140,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">
                     Tags (
-                    <span id="blog-count-tags">6</span>)
+                    <span id="blog-count-tags">{{ tags.length }}</span>)
                   </span>
                 </div>
                 <input
@@ -155,26 +155,8 @@
           <div class="row">
             <div class="col col-md-10 offset-md-1">
               <ul id="blog-list-tags">
-                <li>
-                  <a class="tag" href="/mirimadahmed.tumblr/posts?tag=counterstrike">counterstrike</a>
-                </li>
-                <li>
-                  <a
-                    class="tag"
-                    href="/mirimadahmed.tumblr/posts?tag=tumblr%20milestone"
-                  >tumblr milestone</a>
-                </li>
-                <li>
-                  <a class="tag" href="/mirimadahmed.tumblr/posts?tag=10%20posts">10 posts</a>
-                </li>
-                <li>
-                  <a class="tag" href="/mirimadahmed.tumblr/posts?tag=5%20posts">5 posts</a>
-                </li>
-                <li>
-                  <a class="tag" href="/mirimadahmed.tumblr/posts?tag=kandroo">kandroo</a>
-                </li>
-                <li>
-                  <a class="tag" href="/mirimadahmed.tumblr/posts?tag=danish">danish</a>
+                <li v-for="(tag, i) in tags" :key="i">
+                  <a :href="`/${blog.name}?tag=${tag}`" class="tag">{{ tag }}</a>
                 </li>
               </ul>
             </div>
@@ -186,7 +168,17 @@
 </template>
 
 <script>
-export default {}
+import { mapGetters } from 'vuex'
+export default {
+  data () {
+    return {
+      type: this.$route.params.type
+    }
+  },
+  computed: {
+    ...mapGetters(['blog', 'tags'])
+  }
+}
 </script>
 <style scoped>
 .blog {
