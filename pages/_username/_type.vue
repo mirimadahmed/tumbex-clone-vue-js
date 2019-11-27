@@ -1,5 +1,6 @@
 <template>
   <div>
+    <BlogHeader />
     <no-ssr>
       <div v-masonry transition-duration="3s" item-selector=".item" class="masonry-container" fit-width="true">
         <div v-masonry-tile :key="index" v-for="(item, index) in blocks" class="item">
@@ -12,10 +13,12 @@
 
 <script>
 import api from '@/api'
+import BlogHeader from '@/components/Layout/BlogHeader'
 import Post from '@/components/Layout/Post'
 
 export default {
   components: {
+    BlogHeader,
     Post
   },
   data () {
@@ -39,6 +42,7 @@ export default {
       this.isLoading = true
       const response = await api.getPostsWithType(this.username, this.type)
       this.blocks = response.posts
+      this.$store.dispatch('setBlog', response)
       this.isLoading = false
       console.log(response)
     }
