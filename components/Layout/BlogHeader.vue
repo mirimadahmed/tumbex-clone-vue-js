@@ -145,6 +145,7 @@
                 </div>
                 <input
                   id="blog-filter-tags"
+                  v-model="tagText"
                   type="text"
                   class="form-control"
                   placeholder="Filter..."
@@ -155,7 +156,7 @@
           <div class="row">
             <div class="col col-md-10 offset-md-1">
               <ul id="blog-list-tags">
-                <li v-for="(tag, i) in tags" :key="i">
+                <li v-for="(tag, i) in filteredTags" :key="i">
                   <a :href="`/${blog.name}?tag=${tag}`" class="tag">{{ tag }}</a>
                 </li>
               </ul>
@@ -172,11 +173,15 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      type: this.$route.params.type
+      type: this.$route.params.type,
+      tagText: ''
     }
   },
   computed: {
-    ...mapGetters(['blog', 'tags'])
+    ...mapGetters(['blog', 'tags']),
+    filteredTags () {
+      return this.tagText.length > 0 ? this.tags.filter(tag => tag.includes(this.tagText)) : this.tags
+    }
   }
 }
 </script>
