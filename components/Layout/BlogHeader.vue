@@ -433,6 +433,7 @@ export default {
     color: #f4f1ef;
     font-size: .8rem;
     line-height: .9rem;
+    margin-right: 10px;
 }
 .icon-list li.active {
     background-color: #3f525b;
