@@ -41,6 +41,7 @@ export default {
     async fetch () {
       this.isLoading = true
       const response = await api.getPostsWithType(this.username, this.type)
+      api.setSeen(this.username)
       this.blocks = response.posts
       this.$store.dispatch('setBlog', response)
       this.isLoading = false

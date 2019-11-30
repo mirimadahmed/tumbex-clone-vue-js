@@ -1,4 +1,10 @@
+import axios from 'axios'
 const tumblr = require('tumblr.js')
+
+const axiosObj = axios.create({
+  baseURL: 'https://bookable.pk/api'
+  // headers: { 'Cache-Control': 'no-cache', 'Content-Type': 'multipart/form-data' }
+})
 
 const client = tumblr.createClient({
   credentials: {
@@ -19,5 +25,11 @@ export default {
   },
   exists (username) {
     return client.blogInfo(username)
+  },
+  setSeen (data) {
+    return axiosObj.get(`/set_lastseen.php?username=${data}`)
+  },
+  getSeen (data) {
+    return axiosObj.get(`/get_lastseen.php?limit=${data}`)
   }
 }

@@ -3,12 +3,12 @@
     <div class="col-md-12 heading">
       Last tumblr viewed
     </div>
-    <div v-for="last in lastViewed" :key="last" class="col-md-2 my-2 text-center">
+    <div v-for="last in lastViewed" :key="last.username" class="col my-2 text-center">
       <div class="col-md-12">
-        <b-img v-bind="mainProps" rounded="circle" alt="Circle image" />
+        <img :src="`https://api.tumblr.com/v2/blog/${last.username}.tumblr.com/avatar/128`" class="rounded-circle" alt="Circle image">
       </div>
       <div class="col-md-12 title">
-        {{ last }}
+        {{ last.username }}
       </div>
     </div>
     <div class="col-md-12 text-center">
@@ -20,11 +20,20 @@
 </template>
 
 <script>
+import api from '@/api'
 export default {
   data () {
     return {
-      mainProps: { blank: true, blankColor: '#777', width: 75, height: 75 },
-      lastViewed: ['imad', 'hassan', 'umar', 'etc', 'etc', 'etc', 'etc']
+      lastViewed: []
+    }
+  },
+  created () {
+    this.fetch()
+  },
+  methods: {
+    async fetch () {
+      const { data } = await api.getSeen(20)
+      this.lastViewed = data
     }
   }
 }
