@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <script src="https://kit.fontawesome.com/86e7420036.js" crossorigin="anonymous" />
     <TopNav />
     <nuxt />
     <Footer />

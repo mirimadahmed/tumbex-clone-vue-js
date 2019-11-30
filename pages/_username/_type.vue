@@ -45,7 +45,6 @@ export default {
       this.blocks = response.posts
       this.$store.dispatch('setBlog', response)
       this.isLoading = false
-      console.log(response)
     }
   }
 }
