@@ -2,7 +2,7 @@
   <div>
     <BlogHeader />
     <no-ssr>
-      <div v-masonry transition-duration="3s" item-selector=".item" class="masonry-container" fit-width="true">
+      <div v-masonry transition-duration="1s" item-selector=".item" class="masonry-container row" fit-width="true">
         <div v-masonry-tile :key="index" v-for="(item, index) in blocks" class="item">
           <Post :post="item" />
         </div>

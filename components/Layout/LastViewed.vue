@@ -11,8 +11,8 @@
         {{ last.username }}
       </div>
     </a>
-    <div class="col-md-12 text-center">
-      <b-button variant="outline-primary">
+    <div v-if="notOnViewAll" class="col-md-12 text-center">
+      <b-button href="/last-seen" variant="outline-primary">
         View All
       </b-button>
     </div>
@@ -20,20 +20,16 @@
 </template>
 
 <script>
-import api from '@/api'
 export default {
-  data () {
-    return {
-      lastViewed: []
+  props: {
+    lastViewed: {
+      type: Array,
+      required: true
     }
   },
-  created () {
-    this.fetch()
-  },
-  methods: {
-    async fetch () {
-      const { data } = await api.getSeen(20)
-      this.lastViewed = data
+  computed: {
+    notOnViewAll () {
+      return this.$route.name !== 'last-seen'
     }
   }
 }
