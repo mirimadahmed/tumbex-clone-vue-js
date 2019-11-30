@@ -15,9 +15,7 @@
           </div>
         </div>
         <div class="offset-lg-2 col-lg-8 offset-md-1 col-md-10 col-sm-10 offset-sm-1">
-          <form id="form-search" action="https://www.tumbex.com/search" method="get">
-            <input id="home-search-safe" type="hidden" name="safe" value="1">
-            <input id="home-search-type" type="hidden" name="type" value="">
+          <!-- <form id="form-search" method="get">
             <p>Search tumblog, posts :</p><div class="input-group input-group-lg mb-3">
               <input
                 id="form-search-input"
@@ -31,40 +29,36 @@
                 <input type="submit" value="Search" class="btn btn-primary">
               </div>
             </div>
-          </form>
-          <form id="find-tumblr" method="post">
-            <p>Explore a tumblog :</p>
-            <div class="input-group input-group-lg mb-3">
-              <input
-                id="tumblr-id"
-                type="text"
-                name="tumblr-id"
-                class="form-control"
-                placeholder="tumblr-name"
-                required=""
-              >
-              <div class="input-group-append">
-                <span class="input-group-text">.tumblr.com</span>
-              </div>
+          </form> -->
+          <p>Explore a tumblog :</p>
+          <div class="input-group input-group-lg mb-3">
+            <input
+              v-model="tumblr"
+              type="text"
+              class="form-control"
+              placeholder="tumblr-name"
+            >
+            <div class="input-group-append">
+              <span class="input-group-text">.tumblr.com</span>
             </div>
-            <div class="alert alert-danger text-center verify-error" style="display: none">
-              <h5 class="mb-0">
-                <strong>Oh snap!</strong> tumblr "<strong><span class="verify-tumblr" /></strong>" not found.
-              </h5>
+          </div>
+          <div v-if="exist === false" class="alert alert-danger text-center verify-error">
+            <h5 class="mb-0">
+              <strong>Oh snap!</strong> tumblr "<strong>{{ tumblr }}<span class="verify-tumblr" /></strong>" not found.
+            </h5>
+          </div>
+          <div v-if="exist === true" class="alert alert-success text-center verify-success">
+            <h5 class="mb-0">
+              <strong>Yeah!</strong> tumblr "<strong>{{ tumblr }}<span class="verify-tumblr" /></strong>" found. <i class="fa fa-spin fa-sync-alt" />
+            </h5>
+          </div>
+          <div class="row">
+            <div class="col offset-md-4 col-md-4">
+              <button @click="checkTumblr" class="btn btn-block btn-primary">
+                Go <i v-if="isLoading" class="fa fa-spin fa-sync-alt verifying" />
+              </button>
             </div>
-            <div class="alert alert-success text-center verify-success" style="display: none">
-              <h5 class="mb-0">
-                <strong>Yeah!</strong> tumblr "<strong><span class="verify-tumblr" /></strong>" found. <i class="fa fa-spin fa-sync-alt" />
-              </h5>
-            </div>
-            <div class="row">
-              <div class="col offset-md-4 col-md-4">
-                <button type="submit" class="btn btn-block btn-primary">
-                  Go <i class="fa fa-spin fa-sync-alt verifying" style="display: none" />
-                </button>
-              </div>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
@@ -72,8 +66,35 @@
 </template>
 
 <script>
+import api from '@/api'
 export default {
-
+  data () {
+    return {
+      tumblr: '',
+      isLoading: false,
+      exist: 'not-checked'
+    }
+  },
+  methods: {
+    async checkTumblr () {
+      this.isLoading = true
+      let response
+      try {
+        response = await api.exists(this.tumblr)
+        this.isLoading = false
+        if (response.blog) {
+          this.exist = true
+          this.goToTumblr()
+        }
+      } catch (error) {
+        this.isLoading = false
+        this.exist = false
+      }
+    },
+    goToTumblr () {
+      setTimeout(() => this.$router.push(`/${this.tumblr}`), 3000)
+    }
+  }
 }
 </script>
 

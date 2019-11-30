@@ -29,9 +29,7 @@ export default {
   */
   plugins: [
     { src: '~/plugins/vue-masonry', ssr: false },
-    { src: '~/plugins/vue-icon', ssr: false },
-    { src: '~/plugins/vue-photo-grid', ssr: false }
-
+    { src: '~/plugins/vue-icon', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules

@@ -16,5 +16,8 @@ export default {
   },
   getPostsWithType (username, type) {
     return client.blogPosts(username, type)
+  },
+  exists (username) {
+    return client.blogInfo(username)
   }
 }

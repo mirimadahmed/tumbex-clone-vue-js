@@ -28,11 +28,7 @@
           <div v-html="post.player[0]" class="col-md-12 m-0 p-0" />
         </div>
         <div v-else-if="type === 'photo'">
-          <no-ssr>
-            <photo-grid>
-              <img v-for="(item, index) in post.photos" :key="index" :src="item.original_size.url">
-            </photo-grid>
-          </no-ssr>
+          <img v-for="(item, index) in post.photos" :key="index" :src="item.original_size.url">
         </div>
         <div v-else-if="type === 'answer'" class="p-2">
           <h3>{{ post.question }}</h3>
