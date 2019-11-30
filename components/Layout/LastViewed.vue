@@ -3,14 +3,14 @@
     <div class="col-md-12 heading">
       Last tumblr viewed
     </div>
-    <div v-for="last in lastViewed" :key="last.username" class="col my-2 text-center">
+    <a :href="`/${last.username}`" v-for="last in lastViewed" :key="last.username" class="col my-2 text-center">
       <div class="col-md-12">
         <img :src="`https://api.tumblr.com/v2/blog/${last.username}.tumblr.com/avatar/128`" class="rounded-circle" alt="Circle image">
       </div>
       <div class="col-md-12 title">
         {{ last.username }}
       </div>
-    </div>
+    </a>
     <div class="col-md-12 text-center">
       <b-button variant="outline-primary">
         View All
