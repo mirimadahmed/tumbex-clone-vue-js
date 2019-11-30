@@ -82,49 +82,49 @@
     </div>
     <ul class="container-fluid icon-list">
       <li :class="type && type === 'text' ? 'active': ''" class="text">
-        <a :href="`https://www.tumbex.com/${blog.name}/text`">
+        <a :href="`/${blog.name}/text`">
           <i class="fas fa-font fa-3x" />
           <span class="number">Text</span>
           <span class="sr-only">Text</span>
         </a>
       </li>
       <li :class="type && type === 'quote' ? 'active': ''" class="quote">
-        <a :href="`https://www.tumbex.com/${blog.name}/quote`">
+        <a :href="`/${blog.name}/quote`">
           <i class="fas fa-quote-right fa-3x" />
           <span class="number">Citation</span>
           <span class="sr-only">Citation</span>
         </a>
       </li>
       <li :class="type && type === 'audio' ? 'active': ''" class="audio">
-        <a :href="`https://www.tumbex.com/${blog.name}/audio`">
+        <a :href="`/${blog.name}/audio`">
           <i class="fas fa-headphones fa-3x" />
           <span class="number">Audio</span>
           <span class="sr-only">Audio</span>
         </a>
       </li>
       <li :class="type && type === 'photo' ? 'active': ''" class="photo">
-        <a :href="`https://www.tumbex.com/${blog.name}/photo`">
+        <a :href="`/${blog.name}/photo`">
           <i class="fas fa-camera-retro fa-3x" />
           <span class="number">Photo</span>
           <span class="sr-only">Photo</span>
         </a>
       </li>
       <li :class="type && type === 'video' ? 'active': ''" class="video">
-        <a :href="`https://www.tumbex.com/${blog.name}/video`">
+        <a :href="`/${blog.name}/video`">
           <i class="fas fa-video fa-3x" />
           <span class="number">Video</span>
           <span class="sr-only">Video</span>
         </a>
       </li>
       <li :class="type && type === 'link' ? 'active': ''" class="link">
-        <a :href="`https://www.tumbex.com/${blog.name}/link`">
+        <a :href="`/${blog.name}/link`">
           <i class="fas fa-link fa-3x" />
           <span class="number">Lien</span>
           <span class="sr-only">Lien</span>
         </a>
       </li>
       <li :class="type && type === 'chat' ? 'active': ''" class="chat">
-        <a :href="`https://www.tumbex.com/${blog.name}/chat`">
+        <a :href="`/${blog.name}/chat`">
           <i class="far fa-comments fa-3x" />
           <span class="number">Discussion</span>
           <span class="sr-only">Discussion</span>
