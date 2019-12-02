@@ -36,6 +36,6 @@ export default {
     return axiosObj.get(`/login.php?email=${user.email}&password=${user.password}`)
   },
   signup (user) {
-    return axiosObj.get(`/login.php?email=${user.email}&password=${user.password}&username=${user.username}`)
+    return axiosObj.get(`/signup.php?email=${user.email}&password=${user.password}&username=${user.username}`)
   }
 }
