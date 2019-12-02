@@ -37,5 +37,8 @@ export default {
   },
   signup (user) {
     return axiosObj.get(`/signup.php?email=${user.email}&password=${user.password}&username=${user.username}`)
+  },
+  myFavs (id) {
+    return axiosObj.get(`/get_favorites.php?user_id=${id}`)
   }
 }
