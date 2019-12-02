@@ -31,5 +31,11 @@ export default {
   },
   getSeen (data) {
     return axiosObj.get(`/get_lastseen.php?limit=${data}`)
+  },
+  login (user) {
+    return axiosObj.get(`/login.php?email=${user.email}&password=${user.password}`)
+  },
+  signup (user) {
+    return axiosObj.get(`/login.php?email=${user.email}&password=${user.password}&username=${user.username}`)
   }
 }
