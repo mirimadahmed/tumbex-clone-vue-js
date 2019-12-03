@@ -15,7 +15,9 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
     script: [
-      { src: 'https://kit.fontawesome.com/86e7420036.js' }
+      { src: 'https://kit.fontawesome.com/86e7420036.js' },
+      { src: '/json-serilization.js' },
+      { src: '/session.js' }
     ]
 
   },
@@ -33,7 +35,8 @@ export default {
   */
   plugins: [
     { src: '~/plugins/vue-masonry', ssr: false },
-    { src: '~/plugins/vue-icon', ssr: false }
+    { src: '~/plugins/vue-icon', ssr: false },
+    { src: '~/plugins/runner', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules

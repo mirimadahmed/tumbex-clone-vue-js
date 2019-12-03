@@ -29,12 +29,9 @@ export default () => new Vuex.Store({
   },
   actions: {
     login (context, payload) {
-      localStorage.setItem('spacesly-user', JSON.stringify(payload))
       context.commit('login', payload)
     },
     logout (context) {
-      localStorage.removeItem('spacesly-user')
-      localStorage.removeItem('isremember')
       context.commit('logout')
     },
     setBlog (context, payload) {
@@ -45,13 +42,17 @@ export default () => new Vuex.Store({
   mutations: {
     login (state, payload) {
       state.user = payload
-      localStorage.setItem('tumbler-token', payload.token)
-      // Session.set('spacesly-user', payload)
+      localStorage.setItem('tumbex-user', JSON.stringify(payload))
+      localStorage.setItem('isremember', 'true')
+      // eslint-disable-next-line no-undef
+      Session.set('tumbex-user', payload)
     },
     logout (state) {
       state.user = null
-      // Session.clear()
-      localStorage.removeItem('tumbler-token')
+      // eslint-disable-next-line no-undef
+      Session.clear()
+      localStorage.removeItem('tumbex-user')
+      localStorage.removeItem('isremember')
     },
     setBlog (state, payload) {
       state.currentUser = payload
