@@ -89,7 +89,8 @@ export default {
       if (data.error === 1) {
         this.error = data.message
       } else {
-        this.$router.push('/login')
+        this.$store.dispatch('login', data)
+        this.$router.push('/')
       }
     }
   }

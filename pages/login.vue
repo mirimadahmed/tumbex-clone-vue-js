@@ -7,8 +7,8 @@
           <h5>Connect with your email :</h5><div>
             <div>
               <b-alert :show="error.length > 0" variant="danger">
-{{ error }}
-</b-alert>
+                {{ error }}
+              </b-alert>
               <input type="hidden" name="_csrf_token" value="a2lNU1JTckFoUUtlaFZrZDdMcnQrdz09"><input id="_redirect" type="hidden" name="_redirect" value="https://www.tumbex.com/login"><label for="login-email" data-error="Please enter a valid email address.">Email</label><div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-at" /></span>
@@ -66,7 +66,8 @@ export default {
       if (data.error) {
         this.error = data.message
       } else {
-        // logged in here
+        this.$store.dispatch('login', data)
+        this.$router.push('/')
       }
     }
   }
