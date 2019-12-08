@@ -14,6 +14,7 @@ export default () => new Vuex.Store({
   },
   getters: {
     user: state => state.loggedInUser,
+    isLoggedIn: state => state.loggedInUser !== null,
     blog: state => state.currentUser,
     posts: state => state.posts,
     favBlogs: state => state.favouriteBlogs,
@@ -41,14 +42,14 @@ export default () => new Vuex.Store({
   },
   mutations: {
     login (state, payload) {
-      state.user = payload
+      state.loggedInUser = payload
       localStorage.setItem('tumbex-user', JSON.stringify(payload))
       localStorage.setItem('isremember', 'true')
       // eslint-disable-next-line no-undef
       Session.set('tumbex-user', payload)
     },
     logout (state) {
-      state.user = null
+      state.loggedInUser = null
       // eslint-disable-next-line no-undef
       Session.clear()
       localStorage.removeItem('tumbex-user')
