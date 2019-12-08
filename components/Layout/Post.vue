@@ -124,9 +124,19 @@ export default {
 <style scoped>
 .post {
   padding: 10px;
-  width: 33vw;
+  width: 100vw;
   color: white;
   text-align: justify;
+}
+@media screen and (max-width: 1280px) and (min-width: 993px) {
+  .post {
+    width: 33vw !important;
+  }
+}
+@media screen and (max-width: 992px) and (min-width: 601px) {
+  .post {
+    width: 50vw !important;
+  }
 }
 .post-wrapper {
   margin: 0;
