@@ -42,9 +42,31 @@
             #{{ item }}
           </span>
         </div>
-        <div class="p-1">
-          <v-icon :name="typeToIcon(post.type)" class="float-left mx-1" width="20px" />
-          {{ post.note_count }} NOTES {{ timeNow(post.date) }}
+        <div class="post-misc">
+          <div class="post-type">
+            <a class="btn-link btn-sm btn" href="/mirimadahmed.tumblr/post/71378054155/nice-place-to-sleep-p" target="_blank"><i :class="typeToIcon(post.type)" /></a>
+          </div><div class="post-notes">
+            <a class="btn-link btn-sm btn" href="/mirimadahmed.tumblr/post/71378054155/nice-place-to-sleep-p" target="_blank">{{ post.note_count }}<small> notes</small></a>
+          </div><div class="post-date">
+            <a class="btn-link btn-sm btn" href="/mirimadahmed.tumblr/post/71378054155/nice-place-to-sleep-p" target="_blank"><small>{{ timeNow(post.date) }}</small></a>
+          </div>
+          <div class="btn-group-sm btn-group post-actions">
+            <a class="post-favorite favorite btn-link btn post-action" href="javascript:" title="Add to favorite"><i class="fa-fw fa-heart far" /></a>
+            <!-- <div class="dropup dropdown">
+              <a
+                class="dropdown-toggle btn-sm btn-link btn post-action"
+                href="javascript:"
+                title="Share on"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              ><i class="fa-fw fa-share-alt fas" /></a><div class="dropdown-menu-right dropdown-menu">
+                <a class="post-action text-danger report-abuse dropdown-item" href="javascript:" title="Report abuse"><i class="fa-exclamation-circle fa-fw fa" /><span class="name"> Report</span></a><div class="dropdown-divider" /><h6 class="dropdown-header">
+                  Share on
+                </h6><a class="pinterest post-action post-share-on dropdown-item" href="javascript:" title="Pin it"><i class="fa-pinterest fa-fw fab" /><span class="name"> Pinterest</span></a><a class="facebook post-action post-share-on dropdown-item" href="javascript:" title="Share on facebook"><i class="fa-facebook fa-fw fab" /><span class="name"> Facebook</span></a><a class="twitter post-action post-share-on dropdown-item" href="javascript:" title="Tweet"><i class="fa-twitter fa-fw fab" /><span class="name"> Twitter</span></a><a class="google post-action post-share-on dropdown-item" href="javascript:" title="Share on Google +"><i class="fa-google-plus-g fa-fw fab" /><span class="name"> Google +</span></a><a class="reddit post-action post-share-on dropdown-item" href="javascript:" title="Share on reddit"><i class="fa-reddit-alien fa-fw fab" /><span class="name"> Reddit</span></a><a class="vk post-action post-share-on dropdown-item" href="javascript:" title="Share on VK"><i class="fa-vk fa-fw fab" /><span class="name"> VK</span></a>
+              </div>
+            </div> -->
+          </div>
         </div>
       </div>
     </div>
@@ -63,14 +85,14 @@ export default {
   data () {
     return {
       typeToIcons: {
-        photo: 'camera',
-        audio: 'mic',
-        video: 'video',
+        photo: 'fa-camera-retro fas fa-lg icon-photo',
+        audio: 'fa-headphones fas fa-lg icon-audio',
+        video: 'fa-video fas fa-lg icon-video',
         answer: 'clipboard',
-        link: 'link',
-        quote: 'at-sign',
-        chat: 'message-square',
-        text: 'type'
+        link: 'fa-link fas fa-lg icon-link',
+        quote: 'fa-quote-right fas fa-lg icon-quote',
+        chat: 'fa-comments far fa-lg icon-chat',
+        text: 'fa-font fas fa-lg icon-text'
       },
       iconColor: {
         photo: '',
@@ -104,6 +126,7 @@ export default {
   padding: 10px;
   width: 33vw;
   color: white;
+  text-align: justify;
 }
 .post-wrapper {
   margin: 0;
@@ -123,10 +146,102 @@ export default {
   border: 1px solid #2f2f2f;
   color: white;
 }
+.post-misc {
+    color: #adb5bd;
+    font-size: 75%;
+    text-transform: uppercase;
+    border: none;
+}
+.post-misc .post-notes, .post-misc .post-date, .post-misc .post-type {
+    float: left;
+}
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+
+.post-type>.btn {
+    padding-left: 0;
+}
+.post-misc .btn {
+    padding-bottom: 0;
+    padding-right: 0;
+    padding-left: .375rem;
+}
+.btn-group>.btn:first-child {
+    margin-left: 0;
+}
+.post-misc .post-favorite {
+    padding-right: .375rem;
+}
+.btn-group>.btn, .btn-group-vertical>.btn {
+    position: relative;
+    flex: 0 1 auto;
+}
+.btn-sm, .btn-group-sm>.btn, .post-action {
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: 0;
+}
+.post-misc a {
+    color: inherit;
+}
+.btn-link {
+    font-weight: 400;
+    color: #6ab0fb;
+    background-color: transparent;
+}
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0;
+    transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+}
+.post-misc .post-actions {
+    float: right;
+}
+.post-actions {
+    text-align: center;
+}
+.btn-group, .btn-group-vertical {
+    position: relative;
+    display: inline-flex;
+    vertical-align: middle;
+}
 .caption {
   border: 1px solid #2f2f2f;
 }
 .tags {
   border: 1px solid #2f2f2f;
+}
+
+.icon-photo {
+    color: #d95e40;
+}
+.icon-video {
+    color: #748089;
+}
+.icon-chat {
+    color: #529ecc;
+}
+.icon-quote {
+    color: #f2992e;
+}
+.icon-audio {
+    color: #a77dc2;
+}
+.icon-text {
+    color: #bbb;
+}
+.icon-link {
+    color: #56bc8a;
 }
 </style>
