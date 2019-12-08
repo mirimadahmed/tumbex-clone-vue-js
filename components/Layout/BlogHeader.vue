@@ -140,7 +140,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">
                     Tags (
-                    <span id="blog-count-tags">{{ tags.length }}</span>)
+                    <span id="blog-count-tags">{{ count }}</span>)
                   </span>
                 </div>
                 <input
@@ -181,6 +181,9 @@ export default {
     ...mapGetters(['blog', 'tags']),
     filteredTags () {
       return this.tagText.length > 0 ? this.tags.filter(tag => tag.includes(this.tagText)) : this.tags
+    },
+    count () {
+      return this.filteredTags.length
     }
   }
 }
