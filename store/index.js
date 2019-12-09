@@ -10,9 +10,11 @@ export default () => new Vuex.Store({
     posts: [],
     favouriteBlogs: [],
     favouritePosts: [],
-    lastSeen: []
+    lastSeen: [],
+    showLogin: false
   },
   getters: {
+    showLogin: state => state.showLogin,
     user: state => state.loggedInUser,
     isLoggedIn: state => state.loggedInUser !== null,
     blog: state => state.currentUser,
@@ -38,6 +40,9 @@ export default () => new Vuex.Store({
     setBlog (context, payload) {
       context.commit('setBlog', payload.blog)
       context.commit('setPosts', payload.posts)
+    },
+    showLogin (context, payload) {
+      context.commit('showLogin', payload)
     }
   },
   mutations: {
@@ -60,6 +65,9 @@ export default () => new Vuex.Store({
     },
     setPosts (state, payload) {
       state.posts = payload
+    },
+    showLogin (state, payload) {
+      state.showLogin = payload
     }
   }
 })
