@@ -38,8 +38,15 @@ export default () => new Vuex.Store({
       context.commit('logout')
     },
     setBlog (context, payload) {
-      context.commit('setBlog', payload.blog)
+      context.commit('setBlog', payload.blogs)
       context.commit('setPosts', payload.posts)
+    },
+    setPage (context, payload) {
+      context.commit('setPage', payload)
+    },
+    removePostFromFav (context, payload) {
+      const index = context.state.favouritePosts.findIndex(item => item.favorite_id === payload)
+      context.commit('removePostFromFav', index)
     },
     showLogin (context, payload) {
       context.commit('showLogin', payload)
@@ -60,11 +67,17 @@ export default () => new Vuex.Store({
       localStorage.removeItem('tumbex-user')
       localStorage.removeItem('isremember')
     },
-    setBlog (state, payload) {
+    setPage (state, payload) {
       state.currentUser = payload
     },
+    setBlog (state, payload) {
+      state.favouriteBlogs = payload
+    },
     setPosts (state, payload) {
-      state.posts = payload
+      state.favouritePosts = payload
+    },
+    removePostFromFav (state, payload) {
+      state.favouritePosts.splice(payload, 1)
     },
     showLogin (state, payload) {
       state.showLogin = payload
