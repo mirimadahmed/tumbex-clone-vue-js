@@ -48,6 +48,10 @@ export default () => new Vuex.Store({
       const index = context.state.favouritePosts.findIndex(item => item.favorite_id === payload)
       context.commit('removePostFromFav', index)
     },
+    removeBlogFromFav (context, payload) {
+      const index = context.state.favouriteBlogs.findIndex(item => item.favorite_id === payload)
+      context.commit('removeBlogFromFav', index)
+    },
     showLogin (context, payload) {
       context.commit('showLogin', payload)
     }
@@ -78,6 +82,9 @@ export default () => new Vuex.Store({
     },
     removePostFromFav (state, payload) {
       state.favouritePosts.splice(payload, 1)
+    },
+    removeBlogFromFav (state, payload) {
+      state.favouriteBlogs.splice(payload, 1)
     },
     showLogin (state, payload) {
       state.showLogin = payload

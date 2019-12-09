@@ -23,11 +23,11 @@
     <div class="blog-action container-fluid text-center px-0">
       <a
         :data-tumblr="blog.name"
-        href="#"
+        :title="isInFav ? 'Remove from favourite' : 'Add to favorite'"
+        @click="favBlog"
         class="btn-square large tumbex tumblr-favorite"
-        title="Add to favorite"
       >
-        <i class="far fa-star fa-lg" />
+        <i :class="isInFav ? 'fas' : 'far'" class="fa-star fa-lg" />
       </a>
       <div class="h-divider" />
       <a
@@ -170,6 +170,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import api from '@/api'
 export default {
   data () {
     return {
@@ -178,15 +179,34 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['blog', 'tags', 'favBlogs']),
+    ...mapGetters(['isLoggedIn', 'user', 'blog', 'tags', 'favBlogs']),
     filteredTags () {
       return this.tagText.length > 0 ? this.tags.filter(tag => tag.includes(this.tagText)) : this.tags
     },
     count () {
       return this.filteredTags.length
     },
-    isInvFav () {
+    isInFav () {
       return this.favBlogs.filter(post => post.blog_post_id === this.blog.name).length > 0
+    }
+  },
+  methods: {
+    async favBlog () {
+      if (!this.isLoggedIn) {
+        this.$store.dispatch('showLogin', true)
+      } else if (this.isInFav) {
+        const fav = this.favBlogs.filter(post => post.blog_post_id === this.blog.name)[0]
+        const { data } = await api.removeFav(fav.favorite_id)
+        if (data.error === 0) {
+          this.$store.dispatch('removeBlogFromFav', fav.favorite_id)
+        }
+      } else {
+        const { data } = await api.addToFavs(this.user.user_id, 'blog', this.blog.name)
+        if (data.error === 0) {
+          const { data } = await api.myFavs(this.user.user_id)
+          this.$store.dispatch('setBlog', data)
+        }
+      }
     }
   }
 }
