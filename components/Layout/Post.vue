@@ -51,7 +51,7 @@
             <a class="btn-link btn-sm btn" href="/mirimadahmed.tumblr/post/71378054155/nice-place-to-sleep-p" target="_blank"><small>{{ timeNow(post.date) }}</small></a>
           </div>
           <div class="btn-group-sm btn-group post-actions">
-            <a class="post-favorite favorite btn-link btn post-action" href="javascript:" title="Add to favorite"><i class="fa-fw fa-heart far" /></a>
+            <a @click="addToFav" :title="inFavs ? 'Remove from fav' : 'Add to favorite'" class="post-favorite favorite btn-link btn post-action"><i :class="inFavs ? 'fas':'far'" class="fa-fw fa-heart" /></a>
             <!-- <div class="dropup dropdown">
               <a
                 class="dropdown-toggle btn-sm btn-link btn post-action"
@@ -74,7 +74,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import moment from 'moment'
+import api from '@/api'
 export default {
   props: {
     post: {
@@ -106,8 +108,16 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      isLoggedIn: 'isLoggedIn',
+      favPosts: 'favPosts',
+      user: 'user'
+    }),
     type () {
       return this.post.type
+    },
+    inFavs () {
+      return this.favPosts.filter(post => parseInt(post.blog_post_id) === this.post.id).length > 0
     }
   },
   methods: {
@@ -116,6 +126,23 @@ export default {
     },
     typeToIcon (type) {
       return this.typeToIcons[type]
+    },
+    async addToFav () {
+      if (!this.isLoggedIn) {
+        this.$store.dispatch('showLogin', true)
+      } else if (this.inFavs) {
+        const fav = this.favPosts.filter(post => parseInt(post.blog_post_id) === this.post.id)[0]
+        const { data } = await api.removeFav(fav.favorite_id)
+        if (data.error === 0) {
+          this.$store.dispatch('removePostFromFav', fav.favorite_id)
+        }
+      } else {
+        const { data } = await api.addToFavs(this.user.user_id, 'post', this.post.id)
+        if (data.error === 0) {
+          const { data } = await api.myFavs(this.user.user_id)
+          this.$store.dispatch('setBlog', data)
+        }
+      }
     }
   }
 }
