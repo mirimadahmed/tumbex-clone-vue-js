@@ -3,15 +3,67 @@
     <TopNav />
     <nuxt />
     <Footer />
+    <b-modal
+      v-model="showLogin"
+      :header-bg-variant="headerBgVariant"
+      :header-text-variant="headerTextVariant"
+      :body-bg-variant="bodyBgVariant"
+      :body-text-variant="bodyTextVariant"
+      @close="$store.dispatch('showLogin', false)"
+      @hide="$store.dispatch('showLogin', false)"
+      size="lg"
+      class="-p-5"
+    >
+      <Auth :type="type" @logged-in="$store.dispatch('showLogin', false)" />
+      <div slot="modal-footer">
+        <div class="w-100">
+          <b-button
+            v-if="type === 'login'"
+            @click="type='register'"
+            variant="primary"
+            size="sm"
+            class="float-right"
+          >
+            Register
+          </b-button>
+          <b-button
+            v-else
+            @click="type='login'"
+            variant="primary"
+            size="sm"
+            class="float-right"
+          >
+            Login
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import TopNav from '@/components/Layout/TopNav'
 import Footer from '@/components/Layout/Footer'
+import Auth from '@/components/Auth'
 export default {
   components: {
     TopNav,
-    Footer
+    Footer,
+    Auth
+  },
+  data () {
+    return {
+      type: 'login',
+      headerBgVariant: 'light',
+      headerTextVariant: 'dark',
+      bodyBgVariant: 'light',
+      bodyTextVariant: 'dark'
+    }
+  },
+  computed: {
+    ...mapGetters({
+      showLogin: 'showLogin'
+    })
   }
 }
 </script>

@@ -29,6 +29,11 @@
               Dashboard
             </button>
           </div>
+          <div v-if="isLoggedIn" class="col-md-12 my-2">
+            <button @click="logout" class="btn btn-block btn-primary">
+              Logout
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -57,6 +62,11 @@ export default {
     },
     Go (here) {
       this.$router.push(here)
+      this.hideSideBar()
+    },
+    logout () {
+      this.$store.dispatch('logout')
+      this.$router.push('/')
       this.hideSideBar()
     }
   }
