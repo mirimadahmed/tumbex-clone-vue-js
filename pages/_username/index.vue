@@ -12,10 +12,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import api from '@/api'
 import BlogHeader from '@/components/Layout/BlogHeader'
 import Post from '@/components/Layout/Post'
-
 export default {
   components: {
     BlogHeader,
@@ -27,6 +27,12 @@ export default {
       isLoading: false,
       blocks: []
     }
+  },
+  computed: {
+    ...mapGetters({
+      isLoggedIn: 'isLoggedIn',
+      user: 'user'
+    })
   },
   created () {
     this.fetch()
@@ -40,8 +46,12 @@ export default {
     async fetch () {
       this.isLoading = true
       const response = await api.getPosts(this.username)
+      this.$store.dispatch('setPage', response.blog)
       api.setSeen(this.username)
-      this.$store.dispatch('setBlog', response)
+      if (this.isLoggedIn) {
+        const { data } = await api.myFavs(this.user.user_id)
+        this.$store.dispatch('setBlog', data)
+      }
       this.blocks = response.posts
       this.isLoading = false
     }

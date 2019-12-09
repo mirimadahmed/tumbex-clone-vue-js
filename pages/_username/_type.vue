@@ -41,12 +41,15 @@ export default {
     async fetch () {
       this.isLoading = true
       const response = await api.getPostsWithType(this.username, this.type)
+      this.$store.dispatch('setPage', response.blog)
       api.setSeen(this.username)
+      if (this.isLoggedIn) {
+        const { data } = await api.myFavs(this.user.user_id)
+        this.$store.dispatch('setBlog', data)
+      }
       this.blocks = response.posts
-      this.$store.dispatch('setBlog', response)
       this.isLoading = false
     }
-  }
 }
 </script>
 
