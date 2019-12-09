@@ -178,12 +178,15 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['blog', 'tags']),
+    ...mapGetters(['blog', 'tags', 'favBlogs']),
     filteredTags () {
       return this.tagText.length > 0 ? this.tags.filter(tag => tag.includes(this.tagText)) : this.tags
     },
     count () {
       return this.filteredTags.length
+    },
+    isInvFav () {
+      return this.favBlogs.filter(post => post.blog_post_id === this.blog.name).length > 0
     }
   }
 }
