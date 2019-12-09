@@ -40,5 +40,11 @@ export default {
   },
   myFavs (id) {
     return axiosObj.get(`/get_favorites.php?user_id=${id}`)
+  },
+  addToFavs (user, type, id) {
+    return axiosObj.get(`/set_favorite.php?user_id=${user}&blog_post_id=${id}&type=${type}`)
+  },
+  removeFav (id) {
+    return axiosObj.get(`/remove_favorite.php?favorite_id=${id}`)
   }
 }
