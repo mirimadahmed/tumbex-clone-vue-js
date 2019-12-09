@@ -50,6 +50,7 @@ export default {
       this.blocks = response.posts
       this.isLoading = false
     }
+  }
 }
 </script>
 
