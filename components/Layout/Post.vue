@@ -7,7 +7,7 @@
           <div v-html="post.body" />
         </div>
         <div v-else-if="type === 'quote'" class="p-2 col-md-12 m-0">
-          <p>{{ post.text }}</p>
+          <p v-html="post.text" />
         </div>
         <div v-else-if="type === 'link'" class="p-2 col-md-12 m-0">
           <p v-html="post.description" />
@@ -15,10 +15,8 @@
         </div>
         <div v-else-if="type === 'chat'" class="p-2 col-md-12 m-0">
           <div v-for="(item, index) in post.dialogue" :key="index">
-            <h5>
-              {{ item.label }}
-            </h5>
-            <p>{{ item.phrase }}</p>
+            <h5 v-html="item.label" />
+            <p v-html="item.phrase" />
           </div>
         </div>
         <div v-else-if="type === 'audio'" class="m-0 p-0">
@@ -31,8 +29,8 @@
           <img v-for="(item, index) in post.photos" :key="index" :src="item.original_size.url" class="col-md-12 p-0 m-0">
         </div>
         <div v-else-if="type === 'answer'" class="p-2">
-          <h3>{{ post.question }}</h3>
-          <h6>{{ post.answer }}</h6>
+          <h3 v-html="post.question" />
+          <h6 v-html="post.answer" />
         </div>
       </div>
       <div class="col-md-12 post-info">
@@ -51,7 +49,7 @@
             <a class="btn-link btn-sm btn" href="/mirimadahmed.tumblr/post/71378054155/nice-place-to-sleep-p" target="_blank"><small>{{ timeNow(post.date) }}</small></a>
           </div>
           <div class="btn-group-sm btn-group post-actions">
-            <a @click="addToFav" :title="inFavs ? 'Remove from fav' : 'Add to favorite'" class="post-favorite favorite btn-link btn post-action"><i :class="inFavs ? 'fas':'far'" class="fa-fw fa-heart" /></a>
+            <a @click="addToFav" :title="inFavs ? 'Remove from fav' : 'Add to favorite'" class="post-favorite favorite btn-link btn post-action"><i :class="inFavs ? 'fas fav-done':'far'" class="fa-fw fa-heart" /></a>
             <!-- <div class="dropup dropdown">
               <a
                 class="dropdown-toggle btn-sm btn-link btn post-action"
@@ -90,7 +88,7 @@ export default {
         photo: 'fa-camera-retro fas fa-lg icon-photo',
         audio: 'fa-headphones fas fa-lg icon-audio',
         video: 'fa-video fas fa-lg icon-video',
-        answer: 'clipboard',
+        answer: 'fa-quote-right fas fa-lg icon-quote',
         link: 'fa-link fas fa-lg icon-link',
         quote: 'fa-quote-right fas fa-lg icon-quote',
         chat: 'fa-comments far fa-lg icon-chat',
@@ -117,7 +115,7 @@ export default {
       return this.post.type
     },
     inFavs () {
-      return this.favPosts.filter(post => parseInt(post.blog_post_id) === this.post.id).length > 0
+      return this.favPosts.filter(post => parseInt(post.post_id) === this.post.id).length > 0
     }
   },
   methods: {
@@ -131,13 +129,14 @@ export default {
       if (!this.isLoggedIn) {
         this.$store.dispatch('showLogin', true)
       } else if (this.inFavs) {
-        const fav = this.favPosts.filter(post => parseInt(post.blog_post_id) === this.post.id)[0]
+        const fav = this.favPosts.filter(post => parseInt(post.post_id) === this.post.id)[0]
         const { data } = await api.removeFav(fav.favorite_id)
         if (data.error === 0) {
           this.$store.dispatch('removePostFromFav', fav.favorite_id)
+          this.$emit('removed')
         }
       } else {
-        const { data } = await api.addToFavs(this.user.user_id, 'post', this.post.id)
+        const { data } = await api.addBlogToFavs(this.user.user_id, 'post', this.post.blog_name, this.post.id)
         if (data.error === 0) {
           const { data } = await api.myFavs(this.user.user_id)
           this.$store.dispatch('setBlog', data)
@@ -280,5 +279,8 @@ export default {
 }
 .icon-link {
     color: #56bc8a;
+}
+.fav-done {
+    color: #56b657 !important;
 }
 </style>
