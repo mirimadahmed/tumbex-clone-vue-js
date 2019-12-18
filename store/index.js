@@ -41,6 +41,9 @@ export default () => new Vuex.Store({
       context.commit('setBlog', payload.blogs)
       context.commit('setPosts', payload.posts)
     },
+    setOpenPosts (context, payload) {
+      context.commit('setOpenPosts', payload)
+    },
     setPage (context, payload) {
       context.commit('setPage', payload)
     },
@@ -79,6 +82,9 @@ export default () => new Vuex.Store({
     },
     setPosts (state, payload) {
       state.favouritePosts = payload
+    },
+    setOpenPosts (state, payload) {
+      state.posts = payload
     },
     removePostFromFav (state, payload) {
       state.favouritePosts.splice(payload, 1)
