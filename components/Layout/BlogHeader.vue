@@ -27,7 +27,7 @@
         @click="favBlog"
         class="btn-square large tumbex tumblr-favorite"
       >
-        <i :class="isInFav ? 'fas' : 'far'" class="fa-star fa-lg" />
+        <i :class="isInFav ? 'fas fav-done' : 'far'" class="fa-star fa-lg" />
       </a>
       <div class="h-divider" />
       <a
@@ -76,10 +76,9 @@
       </a>
     </div>
     <div
+      v-html="blog.description"
       class="container-fluid blog-panel-description"
-    >
-      {{ blog.description }}
-    </div>
+    />
     <ul class="container-fluid icon-list">
       <li :class="type && type === 'text' ? 'active': ''" class="text">
         <a :href="`/${blog.name}/text`">
@@ -187,7 +186,7 @@ export default {
       return this.filteredTags.length
     },
     isInFav () {
-      return this.favBlogs.filter(post => post.blog_post_id === this.blog.name).length > 0
+      return this.favBlogs.filter(post => post.blog_id === this.blog.name).length > 0
     }
   },
   methods: {
@@ -195,7 +194,7 @@ export default {
       if (!this.isLoggedIn) {
         this.$store.dispatch('showLogin', true)
       } else if (this.isInFav) {
-        const fav = this.favBlogs.filter(post => post.blog_post_id === this.blog.name)[0]
+        const fav = this.favBlogs.filter(post => post.blog_id === this.blog.name)[0]
         const { data } = await api.removeFav(fav.favorite_id)
         if (data.error === 0) {
           this.$store.dispatch('removeBlogFromFav', fav.favorite_id)
@@ -536,6 +535,9 @@ export default {
     max-width: 40%;
     max-width: calc(50% - 64px);
 }
+}
+.fav-done {
+    color: #56b657 !important;
 }
 
 </style>
