@@ -35,7 +35,8 @@ export default {
     return {
       username: this.$route.params.username,
       isLoading: false,
-      blocks: []
+      blocks: [],
+      page: 1
     }
   },
   computed: {
@@ -56,7 +57,7 @@ export default {
   methods: {
     async fetch () {
       this.isLoading = true
-      const response = await api.getPosts(this.username)
+      const response = await api.getPosts(this.username, this.page)
       await api.setPosts({ posts: response.posts })
       this.$store.dispatch('setPage', response.blog)
       this.$store.dispatch('setOpenPosts', response.posts)

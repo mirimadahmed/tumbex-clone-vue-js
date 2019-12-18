@@ -19,14 +19,20 @@ client.addGetMethods({
   singlePost: '/blog/:username/posts/:id'
 })
 export default {
-  getPosts (username) {
-    return client.blogPosts(username)
+  getPosts (username, pageNumber) {
+    return client.blogPosts(username, {
+      page_number: pageNumber,
+      offset: '20'
+    })
   },
   getPost (username, id) {
     return client.getRequest(`/blog/${username}/posts/${id}`)
   },
-  getPostsWithType (username, type) {
-    return client.blogPosts(username, type)
+  getPostsWithType (username, type, pageNumber) {
+    return client.blogPosts(username, type, {
+      page_number: pageNumber,
+      offset: '20'
+    })
   },
   exists (username) {
     return client.blogInfo(username)

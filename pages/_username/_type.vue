@@ -36,7 +36,8 @@ export default {
       username: this.$route.params.username,
       type: this.$route.params.type,
       isLoading: false,
-      blocks: []
+      blocks: [],
+      page: 1
     }
   },
   created () {
@@ -50,7 +51,7 @@ export default {
   methods: {
     async fetch () {
       this.isLoading = true
-      const response = await api.getPostsWithType(this.username, this.type)
+      const response = await api.getPostsWithType(this.username, this.type, this.page)
       this.$store.dispatch('setPage', response.blog)
       this.$store.dispatch('setOpenPosts', response.posts)
       api.setSeen(this.username)
