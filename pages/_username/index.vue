@@ -21,6 +21,16 @@ export default {
     BlogHeader,
     Post
   },
+  head () {
+    return {
+      title: this.username,
+      meta: [
+        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+        { hid: 'description', name: 'description', content: this.username },
+        { hid: 'keywords', name: 'keywords', content: this.tags }
+      ]
+    }
+  },
   data () {
     return {
       username: this.$route.params.username,
@@ -31,6 +41,7 @@ export default {
   computed: {
     ...mapGetters({
       isLoggedIn: 'isLoggedIn',
+      tags: 'tags',
       user: 'user'
     })
   },
@@ -46,7 +57,9 @@ export default {
     async fetch () {
       this.isLoading = true
       const response = await api.getPosts(this.username)
+      await api.setPosts({ posts: response.posts })
       this.$store.dispatch('setPage', response.blog)
+      this.$store.dispatch('setOpenPosts', response.posts)
       api.setSeen(this.username)
       if (this.isLoggedIn) {
         const { data } = await api.myFavs(this.user.user_id)
