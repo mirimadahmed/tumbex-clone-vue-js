@@ -15,10 +15,15 @@ const client = tumblr.createClient({
   },
   returnPromises: true
 })
-
+client.addGetMethods({
+  singlePost: '/blog/:username/posts/:id'
+})
 export default {
   getPosts (username) {
     return client.blogPosts(username)
+  },
+  getPost (username, id) {
+    return client.getRequest(`/blog/${username}/posts/${id}`)
   },
   getPostsWithType (username, type) {
     return client.blogPosts(username, type)
@@ -28,6 +33,12 @@ export default {
   },
   setSeen (data) {
     return axiosObj.get(`/set_lastseen.php?username=${data}`)
+  },
+  setPosts (data) {
+    return axiosObj.post(`/set_posts.php`, data)
+  },
+  getFavPosts (id) {
+    return axiosObj.get(`/get_posts.php?user_id=${id}`)
   },
   getSeen (data) {
     return axiosObj.get(`/get_lastseen.php?limit=${data}`)
@@ -42,7 +53,10 @@ export default {
     return axiosObj.get(`/get_favorites.php?user_id=${id}`)
   },
   addToFavs (user, type, id) {
-    return axiosObj.get(`/set_favorite.php?user_id=${user}&blog_post_id=${id}&type=${type}`)
+    return axiosObj.get(`/set_favorite.php?user_id=${user}&blog_id=${id}&type=${type}`)
+  },
+  addBlogToFavs (user, type, username, id) {
+    return axiosObj.get(`/set_favorite.php?user_id=${user}&post_id=${id}&blog_id=${username}&type=${type}`)
   },
   removeFav (id) {
     return axiosObj.get(`/remove_favorite.php?favorite_id=${id}`)
