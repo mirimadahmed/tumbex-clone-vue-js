@@ -22,7 +22,8 @@
     "tls": "0.0.1",
     "tumblr.js": "^2.0.2",
     "vue-icon": "^2.1.1",
-    "vue-masonry": "^0.11.8"
+    "vue-masonry": "^0.11.8",
+    "vuejs-paginate": "^2.1.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",
