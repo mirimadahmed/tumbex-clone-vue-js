@@ -104,4 +104,40 @@ body {
 .soundcloud_audio_player {
   width: 100%;
 }
+.page-item.active .page-link {
+    z-index: 1 !important;
+    color: #fff !important;
+    background-color: #4e9cba !important;
+    border-color: transparent !important;
+}
+
+.page-link:not(:disabled):not(.disabled) {
+    cursor: pointer !important;
+}
+.page-item.disabled .page-link {
+    color: #6c757d !important;
+    pointer-events: none !important;
+    cursor: auto !important;
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+.page-link {
+    position: relative !important;
+    display: block !important;
+    padding: .5rem .75rem !important;
+    margin-left: 0 !important;
+    line-height: 1.25 !important;
+    color: #61a6c1 !important;
+    background-color: transparent !important;
+    border: 0 solid transparent !important;
+}
+.pagination {
+    display: flex !important;
+    padding-left: 0 !important;
+    list-style: none !important;
+}
+.pagination .page-item {
+    border-top: 1px solid #4e9cba !important;
+    border-bottom: 1px solid #4e9cba !important;
+}
 </style>
