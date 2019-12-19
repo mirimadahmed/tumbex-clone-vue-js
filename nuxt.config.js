@@ -36,7 +36,8 @@ export default {
   plugins: [
     { src: '~/plugins/vue-masonry', ssr: false },
     { src: '~/plugins/vue-icon', ssr: false },
-    { src: '~/plugins/runner', ssr: false }
+    { src: '~/plugins/runner', ssr: false },
+    { src: '~/plugins/paginate', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules
