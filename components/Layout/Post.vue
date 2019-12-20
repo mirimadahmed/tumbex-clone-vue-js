@@ -154,6 +154,11 @@ export default {
   color: white;
   text-align: justify;
 }
+@media screen and (min-width: 1280px) {
+  .post {
+    width: 25vw !important;
+  }
+}
 @media screen and (max-width: 1280px) and (min-width: 993px) {
   .post {
     width: 33vw !important;
