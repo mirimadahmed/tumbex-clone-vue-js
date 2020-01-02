@@ -140,4 +140,7 @@ body {
     border-top: 1px solid #4e9cba !important;
     border-bottom: 1px solid #4e9cba !important;
 }
+.post img, video{
+  width: 100%;
+}
 </style>

@@ -148,6 +148,7 @@ export default {
 </script>
 
 <style scoped>
+
 .post {
   padding: 10px;
   width: 100vw;
