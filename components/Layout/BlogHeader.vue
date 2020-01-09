@@ -2,7 +2,7 @@
   <section v-if="blog !== null" class="blog blog-panel">
     <h1 class="blog-panel-header">
       <span class="blog-panel-icon">
-        <a :href="`https://www.tumbex.com/${blog.name}/posts`">
+        <a :href="`/${blog.name}`">
           <img
             :src="`https://api.tumblr.com/v2/blog/${blog.name}.tumblr.com/avatar/128`"
             :alt="blog.name"
@@ -11,7 +11,7 @@
         </a>
       </span>
       <span class="blog-panel-left text-truncate">
-        <a :href="`https://www.tumbex.com/${blog.name}/posts`">{{ blog.name }}</a>
+        <a :href="`/${blog.name}`">{{ blog.name }}</a>
       </span>
       <span class="blog-panel-right text-truncate">
         <a :href="`https://${blog.name}.tumblr.com`" target="_blank">.tumblr.com</a>
@@ -130,7 +130,7 @@
         </a>
       </li>
     </ul>
-    <div class="pb-3">
+    <div v-if="showtags" class="pb-3">
       <div class="blog-tags">
         <div class="container-fluid">
           <form class="row mb-0" onsubmit="window.event.preventDefault()">
@@ -171,6 +171,13 @@
 import { mapGetters } from 'vuex'
 import api from '@/api'
 export default {
+  props: {
+    showtags: {
+      type: Boolean,
+      required: false,
+      default: true
+    }
+  },
   data () {
     return {
       type: this.$route.params.type,

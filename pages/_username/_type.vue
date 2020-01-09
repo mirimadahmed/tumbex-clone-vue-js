@@ -121,7 +121,7 @@ export default {
       this.isLoading = false
     },
     clickCallback (pageNum) {
-      this.fetch()
+      if (pageNum > this.page) { this.fetch() }
     }
   }
 }

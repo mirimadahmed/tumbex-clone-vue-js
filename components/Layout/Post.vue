@@ -1,5 +1,5 @@
 <template>
-  <div class="post">
+  <div :class="single ? 'full-post' : 'post'">
     <div class="post-wrapper row m-0 p-0">
       <div class="post-content col-md-12 m-0 p-0">
         <div v-if="type === 'text'" class="p-2 col-md-12 m-0">
@@ -22,8 +22,8 @@
         <div v-else-if="type === 'audio'" class="m-0 p-0">
           <div v-html="post.embed" class="col-md-12 m-0 p-0" />
         </div>
-        <div v-else-if="type === 'video'" class="col-md-12 m-0">
-          <div v-html="post.player[0]" class="col-md-12 m-0 p-0" />
+        <div v-else-if="type === 'video'" class="col-md-12 m-0 p-0">
+          <div v-html="post.player[0].embed_code" class="col-md-12 m-0 p-0 text-center" />
         </div>
         <div v-else-if="type === 'photo'">
           <img v-for="(item, index) in post.photos" :key="index" :src="item.original_size.url" class="col-md-12 p-0 m-0">
@@ -42,11 +42,11 @@
         </div>
         <div class="post-misc">
           <div class="post-type">
-            <a class="btn-link btn-sm btn" href="/mirimadahmed.tumblr/post/71378054155/nice-place-to-sleep-p" target="_blank"><i :class="typeToIcon(post.type)" /></a>
+            <a :href="`/${post.blog_name}/${post.id}`" class="btn-link btn-sm btn" target="_blank"><i :class="typeToIcon(post.type)" /></a>
           </div><div class="post-notes">
-            <a class="btn-link btn-sm btn" href="/mirimadahmed.tumblr/post/71378054155/nice-place-to-sleep-p" target="_blank">{{ post.note_count }}<small> notes</small></a>
+            <a :href="`/${post.blog_name}/${post.id}`" class="btn-link btn-sm btn" target="_blank">{{ post.note_count }}<small> notes</small></a>
           </div><div class="post-date">
-            <a class="btn-link btn-sm btn" href="/mirimadahmed.tumblr/post/71378054155/nice-place-to-sleep-p" target="_blank"><small>{{ timeNow(post.date) }}</small></a>
+            <a :href="`/${post.blog_name}/${post.id}`" class="btn-link btn-sm btn" target="_blank"><small>{{ timeNow(post.date) }}</small></a>
           </div>
           <div class="btn-group-sm btn-group post-actions">
             <a @click="addToFav" :title="inFavs ? 'Remove from fav' : 'Add to favorite'" class="post-favorite favorite btn-link btn post-action"><i :class="inFavs ? 'fas fav-done':'far'" class="fa-fw fa-heart" /></a>
@@ -80,6 +80,11 @@ export default {
     post: {
       type: Object,
       required: true
+    },
+    single: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
@@ -150,6 +155,12 @@ export default {
 <style scoped>
 
 .post {
+  padding: 10px;
+  width: 100vw;
+  color: white;
+  text-align: justify;
+}
+.full-post {
   padding: 10px;
   width: 100vw;
   color: white;

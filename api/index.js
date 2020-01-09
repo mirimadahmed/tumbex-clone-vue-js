@@ -20,7 +20,9 @@ client.addGetMethods({
 })
 export default {
   getPosts (username, pageNumber, offset, tag) {
-    const options = {}
+    const options = {
+      notes_info: true
+    }
     if (pageNumber > 1) {
       options.page_number = pageNumber
       options.offset = offset
@@ -30,11 +32,13 @@ export default {
     }
     return client.blogPosts(username, options)
   },
-  getPost (username, id) {
-    return client.getRequest(`/blog/${username}/posts/${id}`)
+  getPost (id) {
+    return axiosObj.get(`/get_post.php?id=${id}`)
   },
   getPostsWithType (username, type, pageNumber, offset, tag) {
-    const options = {}
+    const options = {
+      notes_info: true
+    }
     if (pageNumber > 1) {
       options.page_number = pageNumber
       options.offset = offset
