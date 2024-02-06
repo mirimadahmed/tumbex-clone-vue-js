@@ -1,6 +1,6 @@
-# tumbex
+# Tumbex Clone Vue JS
 
-> Tumbex clone
+A clone of Tumbex website being made in vue js by utilizing the tumblr api.
 
 ## Build Setup
 
